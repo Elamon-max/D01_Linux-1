@@ -1,300 +1,684 @@
-UNIX/Linux operating systems (Basic).
-Linux system installation and updates. Administration basics.
+# 1-qism: Operatsion tizimni o‘rnatish
 
-The russian version of the task can be found in the repository.
+## Vazifa
+Ubuntu 20.04 Server LTS’ni GUI’siz VirtualBox yordamida o‘rnating. O‘rnatilgan versiyani `cat /etc/issue` buyrug‘i orqali tekshiring va natija skrinshotini qo‘shing.
 
-💡 Tap here to leave your feedback on the project. It's anonymous and will help our team make your educational experience better. We recommend completing the survey immediately after the project.
+## Bajarilgan ishlar
+- Quyidagi qadamlar bajarildi:
+  - VirtualBox’da yangi virtual mashina yaratildi.
+  - Ubuntu 20.04 Server LTS GUI’siz o‘rnatildi.
+  - O‘rnatish davomida tarmoq sozlamalari va foydalanuvchi ma’lumotlari kiritildi.
+  - Terminalda Ubuntu versiyasi `cat /etc/issue` buyrug‘i yordamida tekshirildi.
 
-Contents
-Chapter I
-Chapter II
-2.1. Linux
-2.2. Administration
-2.3. Virtual machines
-Chapter III
-3.1 Installation of the OS
-3.2 Creating a user
-3.3 Setting up the OS network
-3.4 OS Update
-3.5 Using the sudo command
-3.6 Installing and configuring the time service
-3.7 Installing and using text editors
-3.8 Installing and basic setup of SSHD service
-3.9 Installing and using the top, htop utilities
-3.10 Using the fdisk utility
-3.11 Using the df utility
-3.12 Using the du utility
-3.13 Installing and using the ncdu utility
-3.14 Working with system logs
-3.15 Using the CRON job scheduler
-Chapter I
-linux
+![Alt text](screen/1-qism.1-screenshot.png)
+*Skrinshot: Terminalda `cat /etc/issue` buyrug‘i yordamida ko‘rsatilgan Ubuntu versiyasi.*
 
-Developer’s note:
-For full immersion, you can play your favorite jazz song while reading the assignment.
+# 2-qism: Foydalanuvchi yaratish
 
-Planet Earth, Seb's Jazz Club, today.
+## Vazifa
+- Yangi foydalanuvchi yarating.
+- Ushbu foydalanuvchini `adm` guruhiga qo‘shing.
+- Yangi foydalanuvchini `/etc/passwd` faylida tekshiring va natijalarni skrinshotlar yordamida tasdiqlang.
 
-"Well, Sebastian, you didn't expect me to believe that you called me just to sit and relax, did you? You're not the type to write to an old comrade in the middle of the working week when you have nothing to say."
+## Bajarilgan ishlar
+- Quyidagi qadamlar bajarildi:
+  - Foydalanuvchi `elamon` yaratildi: \
+    
+    `sudo adduser elamon`
+    
+  - Yaratilgan foydalanuvchi `adm` guruhiga qo‘shildi: \
+     `sudo usermod -aG adm elamon`
+    
+  - Foydalanuvchilar ro‘yxati quyidagi buyruq yordamida tekshirildi: \
+    
+    `cat /etc/passwd`
+    
 
-"Nothing can ever be kept from you! I thought I'd get to the point, but since you're so sharp..."
+ ### Foydalanuvchi yaratish
+![Alt text](screen/1-qism.2-screenshot.png)
+*Skrinshot: Yangi foydalanuvchi yaratish uchun `sudo adduser elamon` buyrug‘ining natijasi.*
 
-"Stop flattering me, I'm just wondering why we're here."
+### Foydalanuvchini tekshirish
+![Alt text](screen/1-qism.3-screenshot.png)
+*Skrinshot: `cat /etc/passwd` buyrug‘i natijasi. Yangi foydalanuvchi ro‘yxatda ko‘rsatilgan.*
 
-"The thing is, I recently joined a development company that needed an administrator. But there is problem: they use Linux as their operating system."
 
-"And you, as a confident Windows user, want to understand the basics of Linux and also the administration?"
+# 3-qism: Operatsion tizim tarmog‘ini sozlash
 
-"Exactly! As far as I remember, you're good at both."
+## Vazifa
+- Kompyuter nomini `user-1` deb sozlash.
+- Hozirgi joylashuvingizga mos vaqt mintaqasini sozlash.
+- Konsol yordamida tarmoq interfeyslari nomlarini ko‘rsatish.
+- Hisobotda `lo` interfeysi haqida tushuntirish berish.
+- Qurilmangiz DHCP serverdan olgan IP manzilni ko‘rsatish uchun buyruq ishlatish.
+- DHCP tushunchasini izohlash.
+- Gateway’ning tashqi va ichki IP manzillarini aniqlash va ko‘rsatish.
+- Statik IP, gateway, va DNS sozlamalarini qo‘lda o‘rnatish.
+- Virtual mashinani qayta yoqing va statik sozlamalarni tekshiring.
+- 1.1.1.1 va ya.ru manzillariga ping yuborish va chiqishni hisobotga skrinshot bilan qo‘shish.
 
-"Well, then, get your laptop! Obviously I haven't done this for a while, but I'll try to help. The main thing is to finish before the club closes, otherwise we'll have to continue tomorrow."
+---
 
-> The song ends, the music slowly fades, they bring you the drinks you ordered.
+## Bajarilgan ishlar
 
-> While Sebastian takes his laptop out and turns it on, you decide to share a little historical background.
+### 1. Kompyuter nomini sozlash
+- Quyidagi buyruq bilan kompyuter nomi `user-1` deb belgilandi: \
+  
+  `sudo hostnamectl set-hostname user-1`
 
-Chapter II
-Linux
-"The history of Linux dates back to 1991, when a Finnish graduate programmer named Linus Torvalds began working on his own operating system kernel.
+### 2. Vaqt mintaqasini sozlash
+- Hozirgi vaqt mintaqasi quyidagi buyruq bilan o‘rnatildi: \
+  
+  `sudo timedatectl set-timezone Asia/Tashkent`
 
-He put his work on a public server and it became a milestone in the history of Linux. First dozens, then hundreds and thousands of developers supported his project, and that's how a complete operating system was born.
 
-The first official version, Linux 1.0, was released in 1994. From the beginning to the present day, Linux has been distributed as free software under the GPL licence. This means that the source code of the operating system can be viewed by anyone - and not just viewed, but modified. The only condition is that the modified code must also be available to everyone and distributed under the GPL. This is important because it allows developers to use the code without worrying about copyright issues.
+### 3. Tarmoq interfeyslari nomlarini ko‘rish
+- Tarmoq interfeyslari quyidagi buyruq yordamida ko‘rsatildi: \
+   `ip link`
+![Alt text](screen/3-qism.1-screenshot.png)
+*Skrinshot: `ip link` buyrug‘ining natijasi.
 
-Today, Linux is the most popular and widely used open source operating system. As an operating system, Linux is software that sits below other software on a computer, receiving requests from those programs and passing those requests on to the computer's hardware."
+`lo` interfeysi (loopback interfeysi) — bu tarmoq interfeysi bo‘lib, kompyuter ichidagi dasturlar yoki xizmatlar o‘zaro aloqa qilish uchun foydalanadi. U tizim ichki tarmog‘i vazifasini bajaradi va har doim mavjud bo‘ladi, hattoki boshqa tarmoq interfeyslari o‘chirilgan bo‘lsa ham.
+`lo` interfeysi tizim ichidagi aloqa uchun ishlatiladi va har doim 127.0.0.1 IP manziliga ega.
 
-> The waitress brings you the drinks you ordered, the musicians start playing again.
+### 4. DHCP orqali IP manzilni aniqlash
 
-Administration
-"Administration, without going into too much detail, is the support and improvement of all computer and office equipment, peripherals, network connectivity, etc. When administering Linux, most of the work is done in the terminal, so it's better to start with the basic utilities."
+Qurilmaning DHCP serverdan olgan IP manzili quyidagi buyruq yordamida aniqlandi:`ip addr show`
 
-> At this point Sebastian's laptop boots up and you see a horrible picture: it doesn't even have the right operating system...
+![Alt text](screen/3-qism.4-screenshot.png)
+Skrinshot: `ip addr show` buyrug‘i orqali olingan IP manzil.
 
-> Instead of reinstalling Sebastian's operating system, you decide to use a virtual machine.
+### 5. DHCP Dekodlash
 
-Virtual machines
-"A virtual machine (VM) is just like a physical computer, it has a CPU, memory, disks for storing files, and can connect to the Internet if necessary. The only difference is that the components of your computer (the hardware) are tangible, while virtual machines exist only as code.
+DHCP nima?
+DHCP (Dynamic Host Configuration Protocol) bu tarmoq protokoli bo‘lib, u tarmoq qurilmalariga avtomatik ravishda IP manzillarni, subnet maskalarni, gateway’larni va DNS sozlamalarini taqdim etadi. DHCP server bu ma’lumotlarni qurilmalarga (DHCP mijozlariga) yetkazadi.
 
-To put it simply, it's a virtual computer on which you can install an operating system and all the associated software, with no changes to your main operating system.
+DHCP Jarayoni (Kodning dekodlash bosqichlari):
+DHCP Discover:
+DHCP mijoz (masalan, yangi ulanish qilgan kompyuter) tarmoqda DHCP serverni topish uchun broadcast xabar yuboradi.
 
-Virtualisation is the process of creating a software (virtual) version of a computer with dedicated CPU, memory and storage resources that are 'borrowed' from a physical computer. A virtual machine is a computer file (image) that works like a normal computer.
+Xabar turi: "Men DHCP server qidiryapman, kimdir bor mi?"
 
-VirtualBox is a virtualisation software product, i.e. a tool for creating virtual machines."
+DHCP Offer:
+DHCP server mijozga IP manzil va boshqa sozlamalarni o‘z ichiga olgan offer (taklif) yuboradi.
 
-> You wanted to share some more useful information later, so you created a materials folder on Sebastian's laptop with useful information.
+Xabar turi: "Mana sizga IP manzil, gateway, va DNS."
 
-Chapter III
-As a result of the work you should provide a report with completed tasks. Each part of the task describe what should be added to the report once it has been completed. This can be screenshots, some data, etc.
+DHCP Request:
+Mijoz serverga o‘ziga taklif qilingan IP manzilni qabul qilishini bildiradi.
 
-A report with a .md extension must be uploaded to the repository, in the src folder;
-All parts of the task should be highlighted in the report as level 2 headers;
-Within one part of the task, everything that is added to the report must be in the form of the list;
-Each screenshot in the report must be briefly captioned (what’s in the screenshot);
-All screenshots must be cropped so that only the relevant part of the screen is shown.
-Part 1. Installation of the OS
-"Well, let's finally get this Linux installed, Sebastian moves the laptop closer to you."
+Xabar turi: "Men IP manzilni qabul qildim."
 
-"Yes, it's about time. I saw a great instruction on Linuxconfig to install the version we need."
+DHCP Acknowledge (ACK):
+DHCP server ushbu xabarni tasdiqlab, IP manzilni mijozga beradi. Shundan so‘ng, IP manzil ma’lum vaqt davomida (lease time) foydalanishga ruxsat etiladi.
 
-== Task ==
+Xabar turi: "IP manzil sizga biriktirildi."
 
-Install Ubuntu 20.04 Server LTS without GUI. (Use VirtualBox).
-There should be no GUI.
-Check Ubuntu version by running the command
-cat /etc/issue
-Add a screenshot of the command output to the report.
-Part 2. Creating a user
-"An installed system is a good thing, but what if someone else uses it? I'll teach you how to create a new user."
-
-== Task ==
-
-Create a user other than the one created during installation. The user must be added to adm group.
-Add a screenshot of command call to create user.
-The new user must be in the output of the command:
-cat /etc/passwd
-Add a screenshot of the command output.
-Part 3. Setting up the OS network
-"In our world, you can't go far without the Internet. However, since we want to train you for the role of a system administrator, I'll show you a little more than just setting up a network."
-
-"Before we begin, I suggest reading about network interfaces and DHCP."
-
-== Task ==
-
-Set the machine name as user-1
-Set the time zone corresponding to your current location.
-Output the names of the network interfaces using a console command.
-In the report give an explanation for the presence of the lo interface.
-Use the console command to get the ip address of the device you are working on from the DHCP server.
-Decode DHCP in the report.
-Define and display the external ip address of the gateway (ip) and the internal IP address of the gateway, aka default ip address (gw).
-Set static (manually set, not received from DHCP server) ip, gw, dns settings (use public DNS servers, e.g. 1.1.1.1 or 8.8.8.8).
-Reboot the virtual machine. Make sure that the static network settings (ip, gw, dns) correspond to those set in the previous point.
-Describe in the report what you have done to complete all seven points (you can do it in text or with screenshots);
-Successfully ping 1.1.1.1 and ya.ru remote hosts and add a screenshot of the output command to the report. There should be "0% packet loss" phrase in command output.
-Part 4. OS Update
-"You're probably wondering, 'Is the system ready now?' It's not ready at all! We haven't updated it to the latest version yet."
-
-== Task ==
-
-Update the system packages to the latest version
-After updating the system packages, if you enter the update command again, a message should appear saying there are no updates;
-Add a screenshot of this message to the report.
-Part 5. Using the sudo command
-"How often were you told as a child that you forgot to say the 'magic' word? One of those 'magic' words was 'please'. Linux has its counterpart – sudo. The system won't perform some operations until it hears the 'magic' word."
-
-== Task ==
-
-Allow user created in Part 2 to execute sudo command.
-In the report explain the true purpose of sudo command (don’t write about the fact that this word is "magic" one);
-Change the OS hostname via the user created in Part 2 (using sudo);
-Add screenshot with changed hostname to the report.
-Part 6. Installing and configuring the time service
-"Although we have the correct time now, it may not always be that way. To avoid having to set it every time yourself, there are time sync services."
-
-== Task ==
-
-Set up the automatic time synchronisation service.
-Output the time of the time zone in which you are currently located.
-The output of the following command must contain NTPSynchronized=yes:
-timedatectl show
-Add screenshots of the correct time and command output to the report.
-Part 7. Installing and using text editors
-"I think we're ready to move on to one of the scariest parts."
-
-You’re pointing toward the Netherlands on the map of the world hanging on the wall.
-
-"Here, Bram Moolenaar has unraveled the mysteries of harmony and inner concentration.
-This is where the first version of VIM was released on 2 November 1991.
-Do you want to learn how to work in VIM?"
-
-"Yes..."
-
-"Then I am your master."
-
-"OK..."
-
-"Just don't cry."
-
-"I won’t..."
-
-== Task ==
-
-Install VIM text editor (+ any two others if you like NANO, MCEDIT, JOE etc.)
-Using each of the three selected editors, create a test_X.txt file, where X is the name of the editor in which the file is created. Write your nickname in it, close the file and save the changes.
-Add screenshots to the report:
-Of each editor with the contents of the file before closing;
-Write down in the report what you have done to exit with the changes saved.
-Using each of the three selected editors, open the file for editing, edit the file by replacing the nickname with the "21 School 21" string, close the file without saving the changes.
-Add screenshots to the report:
-Of each editor with the contents of the file after editing;
-Write down in the report what you have done to exit without saving the changes.
-Using each of the three selected editors, edit the file again (similar to the previous point) and then master the functions of searching through the contents of a file (a word) and replacing a word with any other one.
-Add screenshots to the report:
-Of each editor with word search results;
-Of each editor with commands entered to replace a word with another.
-Part 8. Installing and basic setup of the SSHD service
-"It's convenient to have access from one computer to another over a network, isn't it? But to make it not only convenient, but also safe, you should use SSH service."
-
-== Task ==
-
-Install the SSHd service.
-Add an auto-start of the service whenever the system boots.
-Reset the SSHd service to port 2022.
-Show the presence of the sshd process using the ps command. To do this, you need to match the keys to the command.
-Explain in the report the meaning of the command and each key in it.
-Reboot the system.
-Describe in the report what you have done to complete all five points (you can do this in text or with screenshots);
-The output of the netstat -tan command should contain
-tcp 0 0.0.0.0:2022 0.0.0.0:* LISTEN
-(if there is no netstat command, it needs to be installed);
-Add a screenshot of the command output to the report;
-Explain the meaning of the -tan keys, the value of each output column, the value 0.0.0.0. in the report.
-Part 9. Installing and using the top, htop utilities
-"If I were asked what useful things top and htop utilities do, I would answer in one word: everything."
-
-== Task ==
-
-Install and run the top and htop utilities.
-From the output of the top command determine and write in the report:
-uptime
-number of authorised users
-average system load
-total number of processes
-cpu load
-memory load
-pid of the process with the highest memory usage
-pid of the process taking the most CPU time
-Add a screenshot of the htop command output to the report:
-sorted by PID, PERCENT_CPU, PERCENT_MEM, TIME
-filtered for sshd process
-with the syslog process found by searching
-with hostname, clock and uptime output added
-Part 10. Using the fdisk utility
-"Now let's figure out how to get information about your hard disk. Especially for you I've put together a couple of examples of how to use the fdisk utility."
-
-== Task ==
-
-Run the fdisk -l command.
-In the report write the name of the hard disk, its capacity and number of sectors, and also the swap size.
-Part 11. Using the df utility
-"We got the information about the hard disk, but often it is much more interesting to get information about the disk space, which can be obtained with the df utility."
-
-== Task ==
-
-Run the df command.
-In the report write for the root partition (/):
-partition size
-space used
-space free
-percentage used
-Determine and write the measurement unit in the report.
-Run the df -Th command.
-In the report write for the root partition (/):
-partition size
-space used
-space free
-percentage used
-Determine and write the file system type for the partition in the report.
-Part 12. Using the du utility
-"df is not the only way to get information about disk space. I'll tell you about another one."
-
-== Task ==
-
-Run the du command.
-Output the size of the /home, /var, /var/log folders (in bytes, in human readable format)
-Output the size of all contents in /var/log (not the total, but each nested element using *)
-Add screenshots with the output of all used commands to the report.
-Part 13. Installing and using the ncdu utility
-"You probably didn’t like much the format in which the du command outputs information. I understand you perfectly. So now we'll take a look at its improved version."
-
-== Task ==
-
-Install the ncdu utility.
-Output the size of the /home, /var, /var/log folders.
-The size should be approximately the same as in Part 12;
-
-Add screenshots of the used commands to the report.
-
-Part 14. Working with system logs
-"A system administrator sometimes needs to review events which happened in a system in the recent past. Linux has system logs for that."
-
-== Task ==
-
-Open for viewing:
-1. /var/log/dmesg
-2. /var/log/syslog
-3. /var/log/auth.log
-Write the last successful login time, user name and login method in the report;
-Restart SSHd service;
-Add a screenshot of the service restart message to the report (search for it in the logs).
-Part 15. Using the CRON job scheduler
-"Phew, we finally got to the last part of my long narrative. I will now show you the program, which, among other things, noticeably simplifies the periodic invocation of other programs."
-
-== Task ==
-
-Using the job scheduler, run the uptime command in every 2 minutes.
-Find lines in the system logs (at least two within a given time range) about the execution;
-Display a list of current jobs for CRON;
-Add screenshots of the execution lines and the list of current tasks to the report.
-Remove all tasks from the job scheduler.
-Add a screenshot of the list of current tasks for CRON to the report.
+DHCP ma’lumotlari tarkibi:
+Client MAC Address: Qurilmaning fizik manzili (MAC manzili).
+IP Address Lease Time: Qurilmaga ajratilgan IP manzil amal qilish vaqti.
+Subnet Mask: Tarmoqning IP manzil diapazoni chegarasi.
+Gateway Address: Tarmoqdagi boshqa tarmoqlarga kirish uchun ishlatiladigan yo‘l.
+DNS Server: Domain nomlarini IP manzillarga o‘zgartirish uchun ishlatiladigan server.
+Xulosa:
+DHCP tizimning avtomatlashtirilgan tarmoq sozlamalarini ta’minlash jarayonini boshqaradi. Uning asosiy afzalligi shundaki, har bir qurilmaga IP manzilni qo‘lda o‘rnatishga hojat qolmaydi, bu esa tarmoq boshqaruvini sezilarli darajada yengillashtiradi.
+
+### 6. Shlyuzning tashqi IP manzilini (ip) va shlyuzning ichki IP manzilini, ya'ni standart IP manzilini (gw) aniqlang va ko'rsating.
+
+- Tashqi IP manzilni aniqlash: \
+`curl ifconfig.me`
+
+![Buyruq natijasi](screen/3-qism.6-screenshot.png)
+Skrinshot: Tashqi IP manzili.
+
+- Ichki IP manzil (default gateway): \
+`ip route | grep default`
+
+![buyruq natijasi](screen/3-qism.7-screenshot.png)
+Skrinshot: Ichki IP manzili.
+
+### 7. Statik tarmoq sozlamalarini o‘rnatish
+Statik IP, gateway (GW), va DNS sozlamalarini qo'lda o'rnatish jarayoni, DHCP serveridan avtomatik tarzda IP manzillarini olishni o'zgartiradi va ularni qo'lda belgilaydi. Statik tarmoq sozlamalarini o'rnatish uchun quyidagi qadamlarni bajaradim.
+
+### Statik IP, GW, DNS sozlamalarini o'rnatish:
+1. Netplan konfiguratsiya faylini tahrirlash: Ubuntu 20.04 serverda tarmoq sozlamalari netplan orqali boshqariladi. Tarmoq interfeysi sozlamalari netplan konfiguratsiya faylida joylashgan. Faylni tahrir qilish uchun quyidagi buyruqni ishlatdim: \
+`sudo nano /etc/netplan/01-netcfg.yaml`
+2. Konfiguratsiya faylini sozlash: Fayl ochilgach, quyidagi parametrlarni kiritdim:
+
+- addresses: Qo‘lda belgilangan IP manzilini ko‘rsatish.
+- gateway4: Statik gateway (yo‘l) manzilini ko‘rsatish.
+- nameservers: DNS serverlari ro‘yxati   - 1.1.1.1 va 8.8.8.8
+
+![buyruq natijasi](screen/3-qism.8-screenshot.png)
+
+3. Faylni tahrir qilib saqlaganimdan so'ng, quyidagi buyruqni ishlatib, sozlamalarni qo‘lladim: \
+`sudo netplan apply`                    Bu buyruq tizimni yangi tarmoq sozlamalari bilan yangilaydi.
+
+4. Tarmoqni tekshirish:
+- IP manzilini tekshirish: Sozlamalar to‘g‘ri qo‘llanganligini tekshirish uchun quyidagi buyruqni ishlatdim: \
+`ip addr show`
+
+![buyruq natijasi](screen/3-qism.10-screenshot.png)
+
+- Gateway manzilini tekshirish: \
+`ip route show`
+
+![buyruq natijasi](screen/3-qism.11-screenshot.png)
+
+- DNS sozlamalarini tekshirish: `cat /etc/resolv.conf` buyruq orqali DNS serverlarining to‘g‘ri o‘rnatilganini tekshirishingiz mumkin.
+
+![buyruq natijasi](screen/3-qism.12-screenshot.png)
+
+5. Statik sozlamalar yordamida tarmoq aloqasini tekshirish: Statik IP, gateway, va DNS sozlamalarini muvaffaqiyatli o‘rnatganingizdan so‘ng, internetga ulanishni tekshirib ko‘rish uchun ping buyrug‘ini ishlatdim.
+
+ `ping -c 4 8.8.8.8`
+
+![buyruq natijasi](screen/3-qism.13-screenshot.png)
+ 
+ `ping -c 4 1.1.1.1`
+
+![Alt text](screen/3-qism.14-screenshot.png)
+
+`ping -c 4 ya.ru`
+
+![Alt text](screen/3-qism.15-screenshot.png)
+
+## Xulosa: 
+`0% packet loss` iborasi chiqdi demak bajarildi.
+
+
+# 4-qism. OS yangilanishi
+
+## Vazifa
+
+- Tizim paketlarini so'nggi versiyaga yangilang;
+- Tizim paketlarini yangilagandan so'ng, agar siz yangilash buyrug'ini yana kiritsangiz, yangilanishlar mavjud emasligi haqida xabar paydo bo'lishi kerak;
+- Hisobotga ushbu xabarning skrinshotini qo'shing.
+
+## Bajarilgan ishlar
+
+1. Yangilanishlar ro‘yxatini yangilash:
+Quyidagi buyruq yordamida tizimdagi mavjud yangilanishlarni tekshirdim: `sudo apt update`
+![Buyruq natijasi](screen/4-qism.1-screenshot.png)
+*Skrinshot: Bu buyruq tizimdagi paket manbalarini yangiladi va mavjud yangilanishlarni ko‘rsatdi.
+
+2. Yangilanishlarni o‘rnatish:
+Quyidagi buyruq orqali barcha mavjud yangilanishlarni o‘rnatdim: 
+ `sudo apt upgrade -y`
+![Alt text](screen/4-qism.2-screenshot.png)
+Skrinshot: Tizimdagi paketlar muvaffaqiyatli yangilandi.
+ 
+3. Qolgan yangilanishlarni tekshirish 
+Yangilanishlar tugagandan so‘ng, quyidagi buyruq orqali tizimni qayta tekshirdim: \
+`sudo apt update`
+![Alt text](screen/4-qism.3-screenshot.png) 
+Skrinshot: Tizimda yangilanishlar yo‘qligi haqida quyidagi xabar ko‘rsatildi: `All packages are up to date.`
+
+## Xulosa: 
+Tizim paketlarini yangilash jarayonida quyidagi asosiy bosqichlar bajarildi:
+
+Yangilanishlar ro‘yxatini yangilash: Tizimda mavjud yangilanishlar aniqlanib, ularni o‘rnatishdan oldin yangilash ro‘yxati yangilandi.
+Yangilanishlarni o‘rnatish: Barcha mavjud yangilanishlar muvaffaqiyatli o‘rnatildi.
+Yangilanishlar tugaganini tasdiqlash: Tizimda yangilanishlar yo‘qligi haqida xabar olindi, ya'ni `All packages are up to date` degan xabar ko‘rindi.
+Tizimning barcha paketlari eng so‘nggi versiyaga yangilandi, va yangilanishlar mavjud emasligi tasdiqlandi.
+
+Skrinshotlar orqali barcha jarayonning tasdig‘i qo‘shildi. Tizim yangilandi va hozirda ishlashga tayyor.
+
+
+# 5-qism. sudo buyrug'idan foydalanish
+
+## Vazifa
+
+- 2-qismda yaratilgan foydalanuvchiga `sudo` buyrug'ini ishlatishga ruxsat bering.
+- `sudo` buyrug'ining haqiqiy maqsadini hisobotda tushuntiring (bu so'z "sehrli" ekanligi haqida yozmang).
+- 2-qismda yaratilgan foydalanuvchi yordamida tizimning hostname'ini o'zgartiring (sudo orqali).
+- Hostname o'zgartirilganidan so'ng, skrinshotni hisobotga qo'shing.
+
+
+## Bajarilgan ishlar
+
+1. `sudo` buyrug'idan foydalanish imkonini berish
+2-qismda yaratilgan foydalanuvchiga `sudo` buyrug'idan foydalanish huquqini berish uchun, quyidagi amallarni bajardim:
+
+Foydalanuvchini `sudo` guruhiga qo'shish
+Tizim administratoridan (root foydalanuvchisi) foydalanib, foydalanuvchini `sudo` guruhiga q‘shdim:  
+`sudo usermod -aG sudo user-1`.
+ Endi foydalanuvchi tizimga kirib, sudo buyrug'idan foydalanishi mumkin.
+
+2. `sudo` buyrug'ining maqsadi
+
+`sudo` (Superuser Do) buyrug'i foydalanuvchiga yuqori darajadagi tizim huquqlarini (administrator yoki root huquqlari) vaqtincha olish imkonini beradi. Bu buyruq tizim xavfsizligini ta'minlaydi, chunki faqat ruxsat berilgan foydalanuvchilar yuqori huquqlarga ega bo‘lishi mumkin.
+`sudo` buyrug‘i faqat o‘ziga xos vazifalarni bajarish uchun kerak, masalan, tizim sozlamalarini o‘zgartirish, paketlarni o‘rnatish yoki tizim xavfsizligi bilan bog‘liq operatsiyalarni bajarish.
+Shu bilan birga, `sudo` ishlatilganda tizim har bir buyruqni qayd etadi, shuning uchun bu xavfsizlik va kuzatuv uchun foydalidir.
+
+3. Hostname'ni o'zgartirish
+Endi foydalanuvchidan sudo yordamida tizim hostname'ini o'zgartirdim. O'zgartirish uchun `sudo hostnamectl set-hostname noreneka` buyrug'idan foydalandim.
+
+4. Hostname'ni tekshirish
+ Hostname'ning muvaffaqiyatli o‘zgarganini quyidagi buyruq yordamida tekshirdim:  `hostnamectl`
+![Alt text](screen/5-qism.1-screenshot.png)
+Skrinshot: Bu buyruq tizimda joriy hostname'ni ko‘rsatdi.
+
+## Xulosa
+
+- sudo buyrug'idan foydalanish orqali foydalanuvchiga administrator huquqlari berildi.
+- Hostname muvaffaqiyatli o‘zgartirildi va skrinshot qo‘shildi.
+
+
+# 6-qism. Vaqt xizmatini o'rnatish va sozlash
+
+## Vazifa
+- Avtomatik vaqt sinxronlash xizmatini sozlang.
+- Siz joylashgan vaqt zonasidagi to'g'ri vaqtni ko'rsating.
+- Quyidagi buyruq natijasida `NTPSynchronized=yes` bo'lishini ta'minlang: `timedatectl show`
+- Hisobotga to'g'ri vaqt va buyruq natijasining skrinshotlarini qo'shing.
+
+## Bajarilgan ishlar
+
+1. Avtomatik vaqt sinxronlash xizmatini o'rnatish
+Tizimda avtomatik vaqt sinxronlash uchun systemd-timesyncd yoki boshqa NTP xizmatidan foydalanish mumkin. Quyidagi amallar bajarildi:
+- Timesyncd xizmatini yoqish: `sudo timedatectl set-ntp true`
+- Xizmatni holatini tekshirish: `systemctl status systemd-timesyncd`
+![Alt text](screen/6-qism.1-screenshot.png)
+Skrinshot: xizmat yoniq.
+
+2. Vaqt zonasini to'g'ri o'rnatish
+- Joriy vaqt zonasini tekshirish:
+`timedatectl` ![Alt text](screen/6-qism.2-screenshot.png)
+Skrinshot: Bu buyruq joriy vaqt va vaqt zonasi haqida ma'lumot beradi.
+
+3. Sinxronlash holatini tekshirish
+- timedatectl yordamida NTP sinxronlash holatini tekshirish: 
+`timedatectl show` 
+![Alt text](screen/6-qism.3-screenshot.png)
+Skrinshot: Quyida joriy vaqt va NTPSynchronized=yes ko'rsatilgan tasdiq xabari keltirilgan
+
+## Xulosa
+- Vaqt sinxronlash xizmati muvaffaqiyatli sozlandi.
+- Joriy vaqt zonasi to‘g‘ri o‘rnatildi va to‘g‘ri vaqt ko‘rsatildi.
+- Skrinshotlar bilan barcha jarayon tasdiqlandi.
+
+
+# 7-qism. Matn muharrirlarini o'rnatish va ulardan foydalanish
+
+## Bajarilgan ishlar
+
+### 1. Muharrirlarni o‘rnatish
+
+VIM va boshqa ikki muharrir (masalan, NANO va JOE) quyidagi buyruq orqali o‘rnatildi: \
+`sudo apt update` \
+`sudo apt install vim nano joe -y`
+![Alt text](screen/7-qism.1-screenshot.png)
+
+### VIM-da ishlash
+
+1. Taxallusni yozish va saqlab chiqish:
+
+- Faylni yaratish: `vim test_vim.txt`.
+- Taxallusni yozish: `Elamon`.
+- Saqlash va chiqish: :`wq`.
+![Alt text](screen/7-qism.2-screenshot.png)
+Skrinshot: Fayl yopilishidan oldin ko‘rsatilgan.
+- `i` tugmasini bosib, taxallusimni yozdim va Faylni saqlash va chiqish uchun `Esc`, keyin `:wq` kiritdim va `Enter` tugmasini bosdim.
+
+2. O‘zgartirishlarni saqlamasdan chiqish:
+
+- Faylni ochish: `vim test_vim.txt`.
+- Taxallusni "21 School 21" ga almashtirish.
+- Saqlamasdan chiqish: :`q!`.
+![Alt text](screen/7-qism.3-screenshot.png)
+Skrinshot: Tahrirdan keyin ko‘rsatilgan.
+- O'zgarishlarni saqlamasdan chiqish uchun `Esc`, keyin `:q!` kiritdim va `Enter` tugmasini bosdim.
+
+3. Izlash va almashtirish:
+
+- Faylni ochish: `vim test_vim.txt`.
+- So‘zni izlash: `/Elamon`.
+![Alt text](screen/7-qism.4-screenshot.png)
+
+- So‘zni almashtirish:
+ `:%s/Elamon/Uzbekistan/g`.
+![Alt text](screen/7-qism.5-screenshot.png)
+Skrinshot: Izlash va almashtirish jarayonida ko‘rsatilgan.
+- saqlas uchun `Esc` tuqmasini bosib quyidagi buyruqni kiritdim `:wq`
+
+### 2. NANO-da ishlash
+
+1. Taxallusni yozish va saqlab chiqish:
+
+- Faylni yaratish: `nano test_nano.txt`.
+- Taxallusni yozish: `Elamon`.
+- Saqlash va chiqish: `Ctrl+O`, keyin `Enter`, va `Ctrl+X`.
+![Alt text](screen/7-qism.6-screenshot.png)
+Skrinshot: Fayl yopilishidan oldin ko‘rsatilgan.
+
+2. O‘zgartirishlarni saqlamasdan chiqish:
+
+- Faylni ochish: `nano test_nano.txt`.
+- Taxallusni "`21 School 21`" ga almashtirish.
+- Saqlamasdan chiqish: `Ctrl+X`, keyin `N`.
+![Alt text](screen/7-qism.7-screenshot.png)
+Skrinshot: Tahrirdan keyin ko‘rsatilgan.
+
+3. Izlash va almashtirish:
+
+- Faylni ochish: `nano test_nano.txt`.
+- So‘zni izlash: `Ctrl+W`, keyin `Elamon`.
+- So‘zni almashtirish: `Ctrl+\`, keyin almashtiriladigan so‘zlarni kiritish.
+![Alt text](screen/7-qism.8-screenshot.png)
+Skrinshot: Izlash va almashtirish jarayonida ko‘rsatilgan.
+
+### JOE-da ishlash
+
+1. Taxallusni yozish va saqlab chiqish:
+
+- Faylni yaratish: `joe test_joe.txt`.
+- Taxallusni yozish: `Elamon`.
+- Saqlash va chiqish: `Ctrl+K`, keyin `X`.
+![Alt text](screen/7-qism.9-screenshot.png)
+Skrinshot: Fayl yopilishidan oldin ko‘rsatilgan.
+
+2. O‘zgartirishlarni saqlamasdan chiqish:
+
+- Faylni ochish: `joe test_joe.txt`.
+- Taxallusni "`21 School 21` ga almashtirish.
+- Saqlamasdan chiqish: `Ctrl+C`.
+![Alt text](screen/7-qism.10-screenshot.png)
+Skrinshot: Tahrirdan keyin ko‘rsatilgan.
+
+3. Izlash va almashtirish:
+
+- Faylni ochish: `joe test_joe.txt`.
+- So‘zni izlash: `Ctrl+K`, keyin `F`.
+- So‘zni almashtirish:`Ctrl+K`, keyin `R`.
+![Alt text](screen/7-qism.11-screenshot.png)
+Skrinshot: Izlash va almashtirish jarayonida ko‘rsatilgan.
+
+## Xulosa
+Ushbu topshiriq davomida VIM, NANO va JOE muharrirlaridan foydalanishni o‘rgandim. Har bir muharrirning o‘ziga xos ishlash usuli borligini va funksiyalarining qulayligini taqdim etdi. Hisobotga barcha kerakli skrinshotlar ilova qilindi.
+
+
+# 8-qism. SSHD xizmatini o'rnatish va asosiy sozlash
+
+## Bajarilgan ishlar
+
+1. SSHD xizmatini o‘rnatish
+- Buyruq: `sudo apt install openssh-server -y` bu buyruq  SSHD xizmatini o‘rnatadi 
+![Alt text](screen/8-qism.1-screenshot.png)
+Skrinshot: Natija: SSHD xizmati o‘rnatildi.
+
+2. O‘rnatilganligini tekshirish uchun: \
+`sudo systemctl status ssh`
+![Alt text](screen/8-qism.2-screenshot.png)
+Skrinshot: `active (running)` deb yozilgan demak ishlayabdi.
+
+2. SSHD xizmatini avtomatik ishga tushirishga sozlash
+Xizmatni yoqish: \
+ `sudo systemctl enable ssh`
+- Bu SSH xizmatini tizim yuklanishi bilan avtomatik ishga tushiradi.
+Tekshirish: \
+`sudo systemctl is-enabled ssh`
+![Alt text](screen/8-qism.3-screenshot.png)
+Skrinshot: Natija: enabled.
+
+3. Portni 2022 ga sozlash
+
+![Alt text](screen/8-qism.4-screenshot.png)
+Skrinshot: SSHd xizmatini 2022 portiga tiklandi.
+SSH xizmatini qayta yuklab olamiz: \
+`sudo systemctl restart ssh`
+
+4. SSHD jarayonini ko‘rsatish
+Jarayonni tekshirish uchun buyruq: \
+`ps aux | grep sshd`
+- Buyruq va kalitlarining ma'nosi:
+
+`ps`: Jarayonlar haqida ma'lumot beradi.
+`-aux`: Ushbu kalitlar jarayonlar haqida ko'proq ma'lumot beradi:
+`a`: Barcha foydalanuvchilarning jarayonlarini ko'rsatadi.
+`u`: Jarayonlarni foydalanuvchi formatida ko'rsatadi.
+`x`\: Terminalga bog'liq bo'lmagan jarayonlarni ham ko'rsatadi.
+`| grep sshd`: `ps` buyrug'i natijalaridan sshd jarayonini izlaydi.
+
+![Alt text](screen/8-qism.5-screenshot.png)
+Skrinshot: sshd bilan bog‘liq barcha jarayonlar ko‘rsatiladi.
+
+5. Tizimni qayta yuklash
+`sudo reboot`
+![Alt text](screen/8-qism.6-screenshot.png)
+Skrinshot: Tizim qayta yuklanadi.
+
+- netstat -tan Buyrug'i Bilan Tekshirish
+`netstat` ornatish \
+`sudo apt install net-tools -y`
+![Alt text](screen/8-qism.7-screenshot.png)
+- Portni tinglash holatini tekshirish:
+bunig uchun `netstat -tan | grep 2022`
+burugidan foydalandim
+![Alt text](screen/8-qism.8-screenshot.png)
+
+6. Tugmalar ma’nosi
+
+- `-t`: TCP ulanishlarini ko‘rsatadi.
+- `-a`: Barcha soketlarni (tinglayotgan va faol ulanishlar) ko‘rsatadi.
+- `-n`: IP manzillar va port raqamlarini ko‘rsatadi.
+
+7. Netstat chiqishidagi ustunlarning izohi
+
+- `Proto`: Protokol (TCP).
+- `Recv-Q`: Qabul qilish navbatida turgan ma’lumot hajmi.
+- `Send-Q`: Jo‘natish navbatida turgan ma’lumot hajmi.
+- `Local Address`: Mahalliy interfeys va port (masalan, 0.0.0.0:2022).
+- `Foreign Address`: Tashqi interfeys va port (masalan, *:*).
+- `State`: Ulanish holati (masalan, LISTEN).
+- `0.0.0.0` qiymati
+Barcha interfeyslarga ulanish ochiq ekanligini bildiradi.
+
+# 9-qism. Top , htop utilitlarini o'rnatish va ishlatish
+
+## Bajarilgan ishlar
+
+1. Top va htop o‘rnatish
+Terminalda quyidagi buyruqlarni bajarish:\
+`sudo apt update`\
+`sudo apt install top htop -y`
+
+2. `top` foydalanuvi va kerakli ma'lumotlarni aniqlash
+![Alt text](screen/9-qism.1-screenshot.png)
+
+
+- ish vaqti: 1:03
+- ruxsat berilgan foydalanuvchilar soni:  1 user
+- o'rtacha tizim yuki: 0.00, 0.00, 0.00
+- jarayonlarning umumiy soni 95
+- CPU yuki: 0.0% user, 0.0% system, 100% idle
+- xotira yuki: 7946.2 total, 7111.9 free, 146.3 used, 688.0 buff/cache
+- eng yuqori xotiradan foydalanish jarayonining pid: 1958
+- eng ko'p CPU vaqtini oladigan jarayonning pid: 1528
+
+3. htop Utilitasini Ishga Tushirish va Ma'lumotlarni Yig'ish
+
+- PID bo'yicha tartiblash:\
+![Alt text](screen/9-qism.2-screenshot.png)
+
+- PERCENT_CPU bo'yicha tartiblash: \
+![Alt text](screen/9-qism.4-screenshot.png)
+
+- PERCENT_MEM bo'yicha tartiblash: \
+![Alt text](screen/9-qism.3-screenshot.png)
+
+- TIME bo'yicha tartiblash: \
+![Alt text](screen/9-qism.5-screenshot.png)
+
+- sshd jarayonini filtr qilish: \
+![Alt text](screen/9-qism.6-screenshot.png)
+
+- syslog jarayonini qidirish: \
+![Alt text](screen/9-qism.7-screenshot.png)
+
+- Hostname, soat va uptime ko'rsatish
+![Alt text](screen/9-qism.8-screenshot.png)
+
+
+# 10-qism. Fdisk yordam dasturidan foydalanish
+
+## Bajarilgan ishlar
+
+ 1. `fdisk` Utilitasini Ishga Tushirish
+
+Quyidagi buyruq bilan `fdisk` utilitasini ishga tushirdik:\
+`sudo fdisk -l`
+![Alt text](screen/10-qism.1-screenshot.png)
+Skrinshot: `fdisk -l` chiqarishi
+
+- Disk nomi: `/dev/sda`
+- Sig'imi: `25 GiB`
+- Sektorlar soni: `52428800`
+- Swap hajmi: `4G`
+
+
+# 11-qism. df yordam dasturidan foydalanish
+
+## Bajarilgan ishlar
+
+1. `df` buyrug'ini bajarish: 
+![Alt text](screen/11-qism.1-screenshot.png)
+Skrinshot: `df` buyrug'inig natijasi
+
+`df` buyrug'idan:
+- Bo'lim hajmi: `11758760`
+- Ishlatilgan maydon: `7002168`
+- Bo'sh maydon: `4137484`
+- Foizda ishlatilgan maydon: `63%`
+- O'lchov birligi: `1K-blocks`
+
+2. `df -Th` buyrug'ini bajarish: 
+![Alt text](screen/11-qism.2-screenshot.png)
+`df -Th` buyrug'idan:
+- Bo'lim hajmi: `12G`
+- Ishlatilgan maydon: `6.7G`
+- Bo'sh maydon: `4.0G`
+- Foizda ishlatilgan maydon: `63%`
+- Fayl tizimi turi: ext4
+
+# 12-qism. Du yordam dasturidan foydalanish
+
+## Bajarilgan ishlar
+
+1. `du` buyrug'ini bajarish:
+![Alt text](screen/12-qism.1-screenshot.png)
+Skrinshot: `du` natijasi 
+
+`/home, /var, va /var/log` kataloglarining hajmini olish: 
+
+- `/home` baytlarda olish buyryg'i: `sudo du -sb /home` 
+![Alt text](screen/12-qism.2-screenshot.png)
+Skrinshot: /home katalogining hajmi 1,234,591,93 bayt.
+- `/home` odamlar o'qishi mumkin bo'lgan formatda: `sudo du -sh /home`
+![Alt text](screen/12-qism.3-screenshot.png)
+Skrinshot: /home katalogining hajmi  104K.
+
+- `/var` baytlarda olish buyryg'i: \
+ `sudo du -sb /var` 
+![Alt text](screen/12-qism.4-screenshot.png)
+
+- `/var` odamlar o'qishi mumkin bo'lgan formatda: `sudo du -sh /var`
+![Alt text](screen/12-qism.5-screenshot.png)
+
+- `/var/log` baytlarda olish buyryg'i: \
+ `sudo du -sb /var/log` 
+![Alt text](screen/12-qism.6-screenshot.png)
+
+- `/var/log` odamlar o'qishi mumkin bo'lgan formatda: `sudo du -sh /var/log`
+![Alt text](screen/12-qism.7-screenshot.png)
+
+2. `/var/log` katalogidagi barcha fayllar va kataloglarning hajmini aniqlash
+`sudo du -sh /var/log/*`
+![Alt text](screen/12-qism.8-screenshot.png)
+
+
+# 13-qism. Ncdu yordam dasturini o'rnatish va ishlatish
+
+1. `ncdu` utilitasini o'rnatish:
+`ncdu` utilitasi diskdagi fayl va kataloglarning hajmini vizual tarzda ko'rsatadi va undan foydalanish juda qulay.
+
+`ncdu` ornatish uchun quyidagi buyruqlarni ishlatmiz:
+ `sudo apt update`\
+`sudo apt install ncdu`
+![Alt text](screen/13-qism.1-screenshot.png)
+Skrinshot: `ncdu` utilitasini o'rnatdik
+
+2. `/home, /var, /var/log ` papkalarining hajmini chiqaring.
+
+- `/home` katalogining hajmini ko'rish:\
+`sudo ncdu /home`
+![Alt text](screen/13-qism.2-screenshot.png)
+
+- `/var` katalogining hajmini ko'rish:\
+`sudo ncdu /var`
+![Alt text](screen/13-qism.3-screenshot.png)
+ 
+- `/var/log` katalogining hajmini ko'rish:\
+`sudo ncdu /var/log`
+![Alt text](screen/13-qism.4-screenshot.png)
+
+
+# 14-qism. Tizim jurnallari bilan ishlash
+
+1. `/var/log/dmesg` faylini ko'rish:
+Quyidagi buyruqni kiritamiz:\
+`sudo less /var/log/dmesg`
+![Alt text](screen/14-qism.1-screenshot.png)
+2. `/var/log/syslog` faylini ko'rish:
+Quyidagi buyruqni kiritamiz:
+`sudo less /var/log/syslog`
+![Alt text](screen/14-qism.2-screenshot.png)
+3. `/var/log/auth.log` faylini ko'rish:
+Quyidagi buyruqni kiritamiz:\
+`sudo less /var/log/auth.log`
+![Alt text](screen/14-qism.3-screenshot.png)
+
+4. So'nggi muvaffaqiyatli kirish ma'lumotlarini topish:
+So'nggi muvaffaqiyatli login haqida ma'lumotni topish uchun `/var/log/auth.log` faylini ko'rib chiqish kerak. Bu faylda foydalanuvchi nomi, login vaqti va login usuli haqida ma'lumotlar mavjud bo'ladi.
+
+Login haqida ma'lumotlarni olish uchun, `grep` komandasini ishlatish mumkin:
+Quyidagi buyruqni kiritamiz:\
+`sudo grep "Accepted" /var/log/auth.log`
+![Alt text](screen/14-qism.4-screenshot.png)
+
+- So'nggi muvaffaqiyatli login vaqti: `Jan 21 15:16:28`
+- Foydalanuvchi nomi: `noreneka`
+- Login usuli: `password`
+
+5. SSH xizmatini qayta ishga tushirish:
+SSH xizmatini qayta ishga tushirish uchun quyidagi buyruqni bajarishimiz mumkin:\
+`sudo systemctl restart sshd`
+
+6. Xizmatni qayta yoqilgani haqidagi xabarni topish:
+SSHd xizmatini qayta yoqilgani haqidagi xabarni syslog yoki auth.log faylida topishimiz mumkin.
+quyidagi buyruni bajaramiz:\
+`sudo grep "sshd" /var/log/auth.log`
+![Alt text](screen/14-qism.5-screenshot.png)
+
+
+# 15-qism. CRON ish rejalashtiruvchisidan foydalanish
+
+1. Cron yordamida uptime buyrug'ini har 2 daqiqada bajarish:
+- Cronni tahrirlash: `crontab -e`
+CRON jadvaliga quyidagi qatorni qo'shdik:\
+`*/2 * * * * /usr/bin/uptime >> /home/yourusername/uptime.log 2>&1`
+**Cron yordamida bajarilgan vazifa**:
+  - Har 2 daqiqada `uptime` buyrug'i muvaffaqiyatli ishga tushirildi.
+  - Log faylidagi natijalar:
+![Alt text](screen/15-qism.1-screenshot.png) 
+
+2. CRON uchun joriy ishlar ro'yxatini ko'rsatish; `crontab -l`
+![Alt text](screen/15-qism.2-screenshot.png)
+
+**Cron vazifalarini o'chirish**
+Barcha cron vazifalarini o'chirish uchun:
+`crontab -r`
+
+- Hozirgi vazifalar o'chirildi.
+- `crontab -l` natijasi:
+![Alt text](screen/15-qism.3-screenshot.png)
